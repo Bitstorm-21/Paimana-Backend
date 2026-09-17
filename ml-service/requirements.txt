@@ -1,0 +1,10 @@
+FastAPI
+Uvicorn
+Pydantic
+NumPy
+Pandas
+Joblib
+Scikit-learn
+XGBoost
+LightGBM
+SHAP

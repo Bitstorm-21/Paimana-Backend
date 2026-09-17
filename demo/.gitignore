@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+### Python ###
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+
+### Environment / Secrets ###
+.env
+.env.*
+!.env.example
+
+### ML / Jupyter ###
+.ipynb_checkpoints/

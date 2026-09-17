@@ -1,7 +1,9 @@
 package com.example.demo.exceptions;
 import com.example.demo.payload.APIResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,5 +41,16 @@ public class MyGlobalExceptionHandler {
         APIResponse apiResponse = new APIResponse(message, false);
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<APIResponse> myHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        String detail = e.getMostSpecificCause() == null
+                ? e.getMessage()
+                : e.getMostSpecificCause().getMessage();
+        APIResponse apiResponse = new APIResponse("Invalid JSON request body: " + detail, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
 
