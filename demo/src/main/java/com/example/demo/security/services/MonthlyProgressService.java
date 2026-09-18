@@ -27,4 +27,22 @@ public interface MonthlyProgressService {
             String sortBy,
             String sortOrder
     );
+
+    MonthlyProgressDTO getMonthlyProgressByProjectNameAndMonth(
+            String projectName,
+            String monthName
+    );
+
+    MonthlyProgressResponse getMonthlyProgressByProjectName(
+            String projectName,
+            Integer pageNumber,
+            Integer pageSize,
+            String sortBy,
+            String sortOrder
+    );
+
+    void generateAndSavePredictions(
+            com.example.demo.model.MonthlyProgress monthlyProgress,
+            com.example.demo.model.Project project
+    );
 }

@@ -2,6 +2,7 @@ target/
 .idea/
 *.iml
 .env
+demo/.env
 .env.*
 !.env.example
 

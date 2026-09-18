@@ -1,5 +1,7 @@
 package com.example.demo.payload;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,9 @@ public class MonthlyProgressDTO {
 
     private Long projectId;
 
-    private String MonthName;
+    @JsonProperty("monthName")
+    @JsonAlias({"MonthName", "month", "reportMonth"})
+    private String monthName;
 
     private BigDecimal revisedCost;
 

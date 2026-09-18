@@ -73,7 +73,7 @@ public class MonthlyProgressController {
 
             @RequestParam(
                     name = "sortOrder",
-                    defaultValue = AppConstants.SORT_DIR,
+                    defaultValue = AppConstants.SORT_DIR_MONTHLY,
                     required = false
             )
             String sortOrder) {
@@ -96,7 +96,7 @@ public class MonthlyProgressController {
 
 
     // =====================================================
-    // GET MONTHLY PROGRESS BY PROJECT
+    // GET MONTHLY PROGRESS BY PROJECT ID
     // =====================================================
 
     @GetMapping("/public/monthly-progress/project/{projectId}")
@@ -128,7 +128,7 @@ public class MonthlyProgressController {
 
             @RequestParam(
                     name = "sortOrder",
-                    defaultValue = AppConstants.SORT_DIR,
+                    defaultValue = AppConstants.SORT_DIR_MONTHLY,
                     required = false
             )
             String sortOrder) {
@@ -148,6 +148,94 @@ public class MonthlyProgressController {
                 monthlyProgressResponse,
                 HttpStatus.OK
         );
+    }
+
+
+    // =====================================================
+    // GET MONTHLY PROGRESS BY PROJECT NAME AND MONTH
+    // =====================================================
+
+    @GetMapping("/public/monthly-progress/project-name/{projectName}/month/{monthName}")
+    public ResponseEntity<MonthlyProgressDTO> getMonthlyProgressByProjectNameAndMonth(
+            @PathVariable String projectName,
+            @PathVariable String monthName) {
+
+        MonthlyProgressDTO monthlyProgressDTO =
+                monthlyProgressService.getMonthlyProgressByProjectNameAndMonth(
+                        projectName,
+                        monthName
+                );
+
+        return new ResponseEntity<>(monthlyProgressDTO, HttpStatus.OK);
+    }
+
+
+    // =====================================================
+    // SEARCH BY PROJECT NAME AND MONTH (QUERY PARAMETERS)
+    // =====================================================
+
+    @GetMapping("/public/monthly-progress/search")
+    public ResponseEntity<MonthlyProgressDTO> searchMonthlyProgress(
+            @RequestParam(name = "projectName") String projectName,
+            @RequestParam(name = "monthName") String monthName) {
+
+        MonthlyProgressDTO monthlyProgressDTO =
+                monthlyProgressService.getMonthlyProgressByProjectNameAndMonth(
+                        projectName,
+                        monthName
+                );
+
+        return new ResponseEntity<>(monthlyProgressDTO, HttpStatus.OK);
+    }
+
+
+    // =====================================================
+    // GET ALL MONTHLY PROGRESS BY PROJECT NAME
+    // =====================================================
+
+    @GetMapping("/public/monthly-progress/project-name/{projectName}")
+    public ResponseEntity<MonthlyProgressResponse> getMonthlyProgressByProjectName(
+            @PathVariable String projectName,
+
+            @RequestParam(
+                    name = "pageNumber",
+                    defaultValue = AppConstants.PAGE_NUMBER,
+                    required = false
+            )
+            Integer pageNumber,
+//            cd "/Users/mdmobashirsiddique/Desktop/Coding/Java/Java Project/Paimana-Backend/ml-service"
+
+            @RequestParam(
+                    name = "pageSize",
+                    defaultValue = AppConstants.PAGE_SIZE,
+                    required = false
+            )
+            Integer pageSize,
+
+            @RequestParam(
+                    name = "sortBy",
+                    defaultValue = AppConstants.SORT_MONTHLY_PROGRESS_BY,
+                    required = false
+            )
+            String sortBy,
+
+            @RequestParam(
+                    name = "sortOrder",
+                    defaultValue = AppConstants.SORT_DIR_MONTHLY,
+                    required = false
+            )
+            String sortOrder) {
+
+        MonthlyProgressResponse monthlyProgressResponse =
+                monthlyProgressService.getMonthlyProgressByProjectName(
+                        projectName,
+                        pageNumber,
+                        pageSize,
+                        sortBy,
+                        sortOrder
+                );
+
+        return new ResponseEntity<>(monthlyProgressResponse, HttpStatus.OK);
     }
 }
 //    @PutMapping("/admin/update/project/{projectId}/monthly-progress/{monthName}")

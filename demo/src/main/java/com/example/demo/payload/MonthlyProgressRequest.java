@@ -1,8 +1,9 @@
 package com.example.demo.payload;
 
-import jakarta.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -13,20 +14,21 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MonthlyProgressRequest {
-@Valid
-@NotNull
 
-    private String MonthName;
-    @Valid
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = true, message = "Cost can not be negative")
+    @NotBlank(message = "Month name cannot be blank")
+    @JsonProperty("monthName")
+    @JsonAlias({"MonthName", "month", "reportMonth"})
+    private String monthName;
+
+    @NotNull(message = "Revised cost cannot be null")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Cost cannot be negative")
     private BigDecimal revisedCost;
-    @Valid
-    @NotNull
+
+    @NotNull(message = "Cumulative expenditure cannot be null")
     @DecimalMin(value = "0.0", inclusive = true, message = "Cumulative Expenditure cannot be negative")
     private BigDecimal cumulativeExpenditure;
-    @Valid
-    @NotNull
+
+    @NotNull(message = "Physical progress cannot be null")
     @DecimalMin(value = "0.0", inclusive = true, message = "Physical progress cannot be negative")
     private BigDecimal physicalProgress;
 }

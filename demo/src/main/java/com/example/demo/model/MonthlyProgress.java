@@ -51,9 +51,8 @@ public class MonthlyProgress {
     @Column(name = "physical_progress", nullable = false)
     private BigDecimal physicalProgress;
 
-    // Fixed: changed variable name from 'Month' to 'month'
     @Column(name = "report_month", nullable = false)
-    private String MonthName;
+    private String monthName;
 
     // =========================
     // CALCULATED FEATURES
@@ -79,44 +78,41 @@ public class MonthlyProgress {
 
     @Column(name = "completion_status")
     private Boolean completionStatus;
+
+    // =========================
+    // ML PREDICTION RESULTS
+    // =========================
+
+    @OneToOne(
+            mappedBy = "monthlyProgress",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RiskPrediction riskPrediction;
+
+    @OneToOne(
+            mappedBy = "monthlyProgress",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinancialPrediction financialPrediction;
+
+    @OneToOne(
+            mappedBy = "monthlyProgress",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Intervention intervention;
 }
-
-// =========================
-// ML RESULTS
-// =========================
-
-//    @OneToOne(
-//            mappedBy = "projectMonthlyData",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            fetch = FetchType.LAZY
-//    )
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private RiskPrediction riskPrediction;
-//
-//
-//
-//    @OneToOne(
-//            mappedBy = "projectMonthlyData",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            fetch = FetchType.LAZY
-//    )
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private FinancialPrediction financialPrediction;
-//
-//
-//    @OneToOne(
-//            mappedBy = "projectMonthlyData",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            fetch = FetchType.LAZY
-//    )
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Intervention intervention;
 
 
 
